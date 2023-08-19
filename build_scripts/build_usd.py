@@ -343,6 +343,11 @@ def FormatMultiProcs(numJobs, generator):
             tag = "/M:" # This will build multiple projects at once.
         elif "Xcode" in generator:
             tag = "-j "
+    else:
+        if Windows():
+            # fallback if no generator specified and Visual Studio search fail
+            # we suppose Visual Studio somewhere but we cannot find it
+            tag = "/M:"
 
     return "{tag}{procs}".format(tag=tag, procs=numJobs)
 
